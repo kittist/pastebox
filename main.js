@@ -31,3 +31,14 @@ function createWindow() {
 }
 
 app.whenReady().then(createWindow)
+
+function showStatus(text) {
+  
+  document.getElementById('statusText').textContent = text
+}
+
+app.on("browser-window-focus", (e) => {
+  e.preventDefault()
+  console.log('Hello')
+  showStatus('aaa')
+})

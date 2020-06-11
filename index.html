@@ -81,6 +81,9 @@
           <label>
             <input type="checkbox" name="alwaysOnTop" /> Always on top
           </label>
+          <label>
+            <input type="checkbox" name="autoClipboard" /> Auto getting clipboard
+          </label>
         </form>
       </div>
       <div id="mainArea"></div>
@@ -102,7 +105,20 @@
       const {
         ipcRenderer,
         remote: { getCurrentWindow },
+        clipboard,
+        app
       } = require('electron')
+
+      app.on('activate', (e) => {
+        e.preventDefault()
+        console.log('Hello')
+      })
+
+      // app.whenReady().then((e) => {
+      //   e.preventDefault()
+      //   console.log('Hello');
+      //   showStatus('aaaaaa.')
+      // })
 
       document.ondragover = e => e.preventDefault()
       document.ondrop = e => {
