@@ -32,13 +32,19 @@ function createWindow() {
 
 app.whenReady().then(createWindow)
 
-function showStatus(text) {
+// function showStatus(text) {
   
-  document.getElementById('statusText').textContent = text
-}
+//   document.getElementById('statusText').textContent = text
+// }
 
-app.on("browser-window-focus", (e) => {
-  e.preventDefault()
-  console.log('Hello')
-  showStatus('aaa')
-})
+// app.on("browser-window-focus", (e) => {
+//   e.preventDefault()
+//   console.log(document.getElementById('statusText'))
+// })
+
+ipcMain.on('invokeAction', function(event, data){
+  console.log(data);
+  // var result = processData(data);
+
+  event.sender.send('actionReply', 'Yess');
+});

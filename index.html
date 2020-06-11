@@ -82,7 +82,7 @@
             <input type="checkbox" name="alwaysOnTop" /> Always on top
           </label>
           <label>
-            <input type="checkbox" name="autoClipboard" /> Auto getting clipboard
+            <input type="checkbox" name="autoClipboard"  id="checkboxAutoClipboard" /> Auto getting clipboard
           </label>
         </form>
       </div>
@@ -99,6 +99,7 @@
       settingsForm.alwaysOnTop.onchange = () => {
         getCurrentWindow().setAlwaysOnTop(settingsForm.alwaysOnTop.checked)
       }
+      
       showStatus('Waiting for an image to be pasted in...')
 
       const { Buffer } = require('buffer')
@@ -108,6 +109,28 @@
         clipboard,
         app
       } = require('electron')
+
+      // var autoClipboard = document.getElementById('checkboxAutoClipboard');
+      // console.log(autoClipboard);
+      // autoClipboard.addEventListener('change', function(){
+      //   ipcRenderer.once('actionReply', function(event, response){
+      //       // processResponse(response);
+      //       console.log(response);
+      //       statusText.textContent = response
+      //   })
+      //   ipcRenderer.send('invokeAction', 'someData');
+      // });
+
+      settingsForm.autoClipboard.onchange = () => {
+        console.log('checkbox');
+        // getCurrentWindow().setAlwaysOnTop(settingsForm.alwaysOnTop.checked)
+        ipcRenderer.once('actionReply', function(event, response){
+            console.log(response);
+            statusText.textContent = response
+        })
+        ipcRenderer.send('invokeAction', 'someData');
+      }
+      
 
       app.on('activate', (e) => {
         e.preventDefault()
